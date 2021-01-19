@@ -1,0 +1,13 @@
+{
+  "PROFILE": "DEV",
+  "PORT": "4005",
+  "JWT_SECRET": "84e86ac48e993d06bb3afd382863457e6bca79daf983ec4ba783e75999b1f4a000e686223b87f05659f7f85e0d369a596d39d2df6f76c41fca708c23a7c15488",
+  "STORE_SECRET": "96d39d2df6f76c863457e6bc3d06b",    
+  "PWENC_URL": "http://221.161.62.124:6080/encryption.do",
+  "MSSQL_USER": "sa",
+  "MSSQL_PASS": "Admin6973",
+  "MSSQL_URL": "221.161.62.124",
+  "MSSQL_PORT": "2433",
+  "MSSQL_DB": "Han_Key_Back",
+  "LOG_PATH": "C:/DevelopReact/logs"
+}
