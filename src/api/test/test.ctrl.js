@@ -188,6 +188,110 @@ export const select1 =async ctx=> { //request 나 response의 정보를 담고�
     ctx.throw(500, e);
   }   
 }
+export const select1_1 =async ctx=> { //request 나 response의 정보를 담고있음
+  console.log('2번째 시작')
+  const data  = ctx.request.query;
+  console.log(data)
+
+  if (!data || !data.Minor || !data.Item1 || !data.Minornm || !data.Item2) {
+    ctx.status = 500;
+    return;
+  }  
+  try{
+    const query = `
+    SELECT Minorcd 
+    , Minornm 
+    , Remark 
+    , Item1 
+    , Item2 
+        FROM TMinor WHERE Minor = '${data.Minor}' AND isnull(UseYn, 'Y') != 'N'AND Item2 = '${data.Item2}' AND Item1 = '${data.Item1}'  AND (Minornm like '${data.Minornm}'+'%') ORDER BY SortSeq, Minorcd
+    `
+    const pool = await dbPool();
+    const result = await pool.request().query(query);    
+    const rtn = result.recordset;
+    if(!rtn || rtn.length < 1){
+      ctx.throw(404);
+    }else{
+      ctx.body = rtn;
+    }
+  } catch (e) {
+    winston.error(e.message);
+    ctx.throw(500, e);
+  }   
+}
+
+export const select2 =async ctx=> { //request 나 response의 정보를 담고있음
+  console.log('3번째 시작')
+  const data  = ctx.request.query;
+  console.log(data)
+
+  if (!data || !data.Minor || !data.likes) {
+    ctx.status = 500;
+    return;
+  }  
+  try{
+    const query = `
+    SELECT Minorcd 
+    , Minornm 
+    , Remark 
+    , Item2 
+    , Item3 
+        FROM TMinor 
+        WHERE Minor = '${data.Minor}' 
+        AND isnull(UseYn, 'Y') != 'N' 
+        AND (Minornm like '${data.likes}' OR Remark like '${data.likes}' OR Item2 like '${data.likes}' OR Item3 like '${data.likes}') 
+        ORDER BY Item3, Item2, Remark
+    `
+    const pool = await dbPool();
+    const result = await pool.request().query(query);    
+    const rtn = result.recordset;
+    if(!rtn || rtn.length < 1){
+      ctx.throw(404);
+    }else{
+      ctx.body = rtn;
+    }
+  } catch (e) {
+    winston.error(e.message);
+    ctx.throw(500, e);
+  }   
+}
+
+export const select3 =async ctx=> { //request 나 response의 정보를 담고있음
+  console.log('3번째 시작')
+  const data  = ctx.request.query;
+  console.log(data)
+
+  if (!data || !data.likes) {
+    ctx.status = 500;
+    return;
+  }  
+  try{
+    const query = `
+    SELECT Minorcd
+    , Minornm
+    , Remark
+    , Item1
+    , Item2
+    FROM TMinor
+    WHERE Minor = '063'
+    AND isnull(UseYn, 'Y') != 'N'
+    AND (Minornm like '${data.likes}%' OR Remark like '${data.likes}%' OR
+    Item2 like '${data.likes}%')
+    ORDER BY SortSeq, Minorcd
+    `
+    const pool = await dbPool();
+    const result = await pool.request().query(query);    
+    const rtn = result.recordset;
+    if(!rtn || rtn.length < 1){
+      ctx.throw(404);
+    }else{
+      ctx.body = rtn;
+    }
+  } catch (e) {
+    winston.error(e.message);
+    ctx.throw(500, e);
+  }   
+}
 
 export const selectByPrint = async ctx => {
   const { invoiceno, Custcd } = ctx.request.query;  
