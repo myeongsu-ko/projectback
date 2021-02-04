@@ -13,7 +13,10 @@ order.post('/update',checkLoggedIn, testCtrl.getUpdate)
 order.get('/select1',checkLoggedIn, testCtrl.select1)
 order.get('/select1_1',checkLoggedIn, testCtrl.select1_1)
 order.get('/select2',checkLoggedIn, testCtrl.select2)
+order.get('/select2_1',checkLoggedIn, testCtrl.select2_1)
 order.get('/select3',checkLoggedIn, testCtrl.select3)
+order.get('/finalSelect',checkLoggedIn, testCtrl.finalSelect)
+
 
 
 export default order;
